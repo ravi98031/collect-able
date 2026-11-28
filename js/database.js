@@ -17,7 +17,8 @@ function applySettings(s){
 async function loadFromDatabase(){
   const c=window.SUPABASE_CONFIG;
   if(!c || !c.url || !c.anonKey) return;
-  const h={apikey:c.anonKey, Authorization:"Bearer "+c.anonKey};
+  const h={apikey:c.anonKey};
+  if(!c.anonKey.startsWith("sb_")) h.Authorization="Bearer "+c.anonKey; /* new sb_publishable_ keys must only go in the apikey header */
   try{
     const [pr,st]=await Promise.all([
       fetch(c.url+"/rest/v1/products?select=*&active=eq.true&order=sort.asc,created_at.asc",{headers:h}),
