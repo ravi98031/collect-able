@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Collectable Admin</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="bg"></div>
+<main>
+  <header class="top"><b>COLLECT<span>ABLE</span> <small>admin</small></b><span id="who"></span><button class="btn" id="logout" hidden>Log out</button></header>
+
+  <section id="setup" class="card" hidden>
+    <h2>Database not connected yet</h2>
+    <p>Open <code>supabase-config.js</code> in your site folder and paste your Supabase URL and anon key. Steps are in <code>README-ADMIN.md</code>.</p>
+  </section>
+
+  <section id="login" class="card narrow" hidden>
+    <h2>Admin login</h2>
+    <form id="loginForm">
+      <label>Email<input id="em" type="email" autocomplete="username" required></label>
+      <label>Password<input id="pw" type="password" autocomplete="current-password" required></label>
+      <button class="btn go" type="submit">Log in</button>
+    </form>
+  </section>
+
+  <section id="app" hidden>
+    <nav class="tabs"><button data-t="products" class="on">Products</button><button data-t="settings">Settings</button><button data-t="help">Help</button></nav>
+
+    <div id="t-products">
+      <div class="bar"><button class="btn go" id="addBtn">+ Add product</button><button class="btn" id="importBtn">Import my current products</button></div>
+      <div id="list" class="card"></div>
+      <form id="form" class="card" hidden>
+        <h2 id="formTitle">Add product</h2>
+        <div class="grid">
+          <label>Name<input id="f-name" required></label>
+          <label>Product ID (web address name)<input id="f-id" required pattern="[a-z0-9-]+"></label>
+          <label>Category<select id="f-cat"></select></label>
+          <label>Price (₹)<input id="f-price" type="number" min="0" required></label>
+          <label>Size set<select id="f-preset"><option value="">Choose a set</option><option value="apparel">Clothing sizes</option><option value="shoes">Shoe sizes</option><option value="one">One size</option></select></label>
+          <label>Sizes (comma separated)<input id="f-sizes" required></label>
+          <label>Colour of the drawing<input id="f-color" type="color" value="#2a2a2d"></label>
+          <label>Short print text<input id="f-print" maxlength="4"></label>
+          <label>Tile style<select id="f-bg"><option>0</option><option>1</option><option>2</option><option>3</option></select></label>
+          <label>Tag (for example New)<input id="f-tag"></label>
+          <label>Order number (small shows first)<input id="f-sort" type="number" value="0"></label>
+          <label class="chk"><input id="f-drop" type="checkbox"> Part of the drop (locked until drop date)</label>
+          <label class="chk"><input id="f-active" type="checkbox" checked> Show on the website</label>
+        </div>
+        <label>Description<textarea id="f-desc" rows="3"></textarea></label>
+        <label>Photo (optional, replaces the drawing)<input id="f-file" type="file" accept="image/*"></label>
+        <div id="prev"></div>
+        <div class="bar"><button class="btn go" type="submit">Save product</button><button class="btn" type="button" id="cancel">Cancel</button></div>
+      </form>
+    </div>
+
+    <form id="t-settings" class="card" hidden>
+      <h2>Website settings</h2>
+      <div class="grid">
+        <label>Drop name<input id="s-drop_name"></label>
+        <label>Drop date and time (India time)<input id="s-drop_at" type="datetime-local"></label>
+        <label>Free shipping above (₹)<input id="s-free_ship" type="number"></label>
+        <label>Shipping fee (₹)<input id="s-ship_fee" type="number"></label>
+        <label>WhatsApp number (10 digits)<input id="s-whatsapp"></label>
+        <label>Instagram username<input id="s-instagram"></label>
+        <label>Contact email<input id="s-email" type="email"></label>
+      </div>
+      <button class="btn go" type="submit">Save settings</button>
+    </form>
+
+    <div id="t-help" class="card" hidden>
+      <h2>How this works</h2>
+      <p>Changes you save here go live on the website straight away. Visitors may need to refresh the page once.</p>
+      <p>Not editable here yet: page text (About, FAQ, Contact), colours, orders and customer accounts. Those are the next steps.</p>
+    </div>
+  </section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="../supabase-config.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/products.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
